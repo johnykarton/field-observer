@@ -168,6 +168,44 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
   </div>
 </div>
 
+<!-- PRECISION BAR -->
+<div id="prec-bar" style="background:#111;border-bottom:2px solid #2a2a2a;padding:10px 16px;">
+  <!-- idle state -->
+  <div id="prec-idle" style="display:flex;align-items:center;gap:10px;">
+    <button onclick="startPrecision()" style="background:#fff;color:#000;border:none;border-radius:8px;font-size:14px;font-weight:800;padding:10px 18px;cursor:pointer;white-space:nowrap;letter-spacing:.04em;">⊙ ZPŘESNIT</button>
+    <span style="font-size:12px;color:#444;line-height:1.4;">Průměr 60s měření<br>pro vyšší přesnost</span>
+  </div>
+  <!-- measuring state -->
+  <div id="prec-measuring" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <span style="font-size:13px;font-weight:800;color:#f44;letter-spacing:.06em;">● NEHNOUT – MĚŘÍ SE</span>
+      <span style="font-size:13px;font-weight:800;color:#fff;" id="prec-countdown">60</span>
+    </div>
+    <div style="background:#1a1a1a;border-radius:4px;height:6px;overflow:hidden;">
+      <div id="prec-progress" style="height:100%;background:#fff;width:0%;transition:width .1s linear;"></div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:8px;font-size:11px;color:#555;font-weight:700;">
+      <span>N: <span id="prec-n">0</span></span>
+      <span>AZ σ: <span id="prec-sd">—</span></span>
+    </div>
+  </div>
+  <!-- result state -->
+  <div id="prec-result" style="display:none;">
+    <div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;">Průměrné hodnoty (zpřesněno)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:10px;">
+      <div><div style="font-size:10px;color:#555;font-weight:700;">GEO</div><div style="font-size:20px;font-weight:800;color:#fff;" id="r-az-geo">—</div></div>
+      <div><div style="font-size:10px;color:#555;font-weight:700;">MAG</div><div style="font-size:20px;font-weight:800;color:#888;" id="r-az-mag">—</div></div>
+      <div><div style="font-size:10px;color:#555;font-weight:700;">β</div><div style="font-size:20px;font-weight:800;color:#fff;" id="r-beta">—</div></div>
+      <div><div style="font-size:10px;color:#555;font-weight:700;">γ</div><div style="font-size:20px;font-weight:800;color:#fff;" id="r-gamma">—</div></div>
+    </div>
+    <div style="font-size:11px;color:#444;margin-bottom:10px;" id="r-info"></div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="savePrecision()" style="flex:1;background:#fff;color:#000;border:none;border-radius:8px;font-size:14px;font-weight:800;padding:10px;cursor:pointer;">ULOŽIT MĚŘENÍ</button>
+      <button onclick="discardPrecision()" style="background:#1a1a1a;color:#888;border:1px solid #333;border-radius:8px;font-size:13px;font-weight:700;padding:10px 14px;cursor:pointer;">SMAZAT</button>
+    </div>
+  </div>
+</div>
+
 <div class="save-form">
   <input class="note-in" id="note-in" type="text" placeholder="ID fotky / poznámka…" autocomplete="off" autocorrect="off" spellcheck="false">
   <button class="btn-save" id="btn-save" onclick="savePoint()">ULOŽIT</button>
@@ -191,7 +229,126 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
 <script>
 /* STATE */
 let gpsData=null, azTrue=null, azMag=null, azMagRaw=null, decl=null, tilt=null, gamma=null, points=[];
-var calBeta=0, calGamma=0; /* calibration offsets */
+var calBeta=0, calGamma=0;
+
+/* PRECISION MEASUREMENT */
+var precSamples=[], precTimer=null, precInterval=null, precResult=null;
+var PREC_DURATION=60000; /* 60 seconds */
+
+function startPrecision(){
+  precSamples=[];
+  precResult=null;
+  show('prec-idle',false); show('prec-measuring',true); show('prec-result',false);
+  /* turn live values red */
+  setMeasuringStyle(true);
+  var start=Date.now();
+  precInterval=setInterval(function(){
+    /* collect sample */
+    if(azTrue!=null && tilt!=null && gamma!=null){
+      precSamples.push({az:azTrue, mag:azMag, beta:tilt, gamma:gamma});
+    }
+    /* update UI */
+    var elapsed=Date.now()-start;
+    var pct=Math.min(100, elapsed/PREC_DURATION*100);
+    var remaining=Math.max(0, Math.ceil((PREC_DURATION-elapsed)/1000));
+    document.getElementById('prec-progress').style.width=pct+'%';
+    document.getElementById('prec-countdown').textContent=remaining;
+    document.getElementById('prec-n').textContent=precSamples.length;
+    /* live std dev of azimuth */
+    if(precSamples.length>2){
+      document.getElementById('prec-sd').textContent=circStdDeg(precSamples.map(function(s){return s.az;})).toFixed(1)+'°';
+    }
+  }, 100);
+
+  precTimer=setTimeout(function(){
+    clearInterval(precInterval);
+    finishPrecision();
+  }, PREC_DURATION);
+}
+
+function finishPrecision(){
+  setMeasuringStyle(false);
+  if(precSamples.length===0){ discardPrecision(); return; }
+
+  var azGeo=circMeanDeg(precSamples.map(function(s){return s.az;}));
+  var azM  =precSamples[0].mag!=null ? circMeanDeg(precSamples.map(function(s){return s.mag;})) : null;
+  var beta =mean(precSamples.map(function(s){return s.beta;}));
+  var gam  =mean(precSamples.map(function(s){return s.gamma;}));
+  var sdAz =circStdDeg(precSamples.map(function(s){return s.az;}));
+
+  precResult={az_geo:+azGeo.toFixed(1), az_mag:azM!=null?+azM.toFixed(1):null,
+              tilt:Math.round(beta), gamma:Math.round(gam), n:precSamples.length, sd:+sdAz.toFixed(1)};
+
+  document.getElementById('r-az-geo').textContent=precResult.az_geo+'°';
+  document.getElementById('r-az-mag').textContent=precResult.az_mag!=null?precResult.az_mag+'°':'—';
+  document.getElementById('r-beta').textContent=(precResult.tilt>=0?'+':'')+precResult.tilt+'°';
+  document.getElementById('r-gamma').textContent=(precResult.gamma>=0?'+':'')+precResult.gamma+'°';
+  document.getElementById('r-info').textContent='n='+precResult.n+' vzorků · σ azimutu='+precResult.sd+'°';
+
+  show('prec-measuring',false); show('prec-result',true);
+}
+
+function savePrecision(){
+  if(!precResult) return;
+  var note=document.getElementById('note-in').value.trim();
+  var now=new Date();
+  points.unshift({
+    id: points.length ? points[0].id+1 : 1,
+    timestamp: now.toISOString(), tsLocal: now.toLocaleString('cs-CZ'),
+    lat: gpsData?gpsData.lat:null, lon: gpsData?gpsData.lon:null,
+    alt: gpsData?gpsData.alt:null, acc: gpsData?gpsData.acc:null,
+    az_geo: precResult.az_geo, az_mag: precResult.az_mag,
+    decl: decl!=null?+decl.toFixed(1):null,
+    tilt: precResult.tilt, gamma: precResult.gamma,
+    prec_n: precResult.n, prec_sd: precResult.sd,
+    note: note
+  });
+  document.getElementById('note-in').value='';
+  discardPrecision();
+  render(); updBtns();
+  /* flash feedback */
+  var btn=document.querySelector('#prec-bar button');
+  /* already back to idle */
+}
+
+function discardPrecision(){
+  clearTimeout(precTimer); clearInterval(precInterval);
+  precSamples=[]; precResult=null;
+  setMeasuringStyle(false);
+  document.getElementById('prec-progress').style.width='0%';
+  document.getElementById('prec-countdown').textContent='60';
+  document.getElementById('prec-n').textContent='0';
+  document.getElementById('prec-sd').textContent='—';
+  show('prec-idle',true); show('prec-measuring',false); show('prec-result',false);
+}
+
+function setMeasuringStyle(on){
+  var ids=['az-geo','az-dir','az-mag','tilt-val','gamma-val'];
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.style.color=on?'#f44':'';
+  });
+}
+
+function show(id,visible){
+  document.getElementById(id).style.display=visible?'':'none';
+}
+
+/* MATH HELPERS */
+function mean(arr){ return arr.reduce(function(a,b){return a+b;},0)/arr.length; }
+
+function circMeanDeg(angles){
+  var sinSum=0, cosSum=0;
+  angles.forEach(function(a){ var r=a*Math.PI/180; sinSum+=Math.sin(r); cosSum+=Math.cos(r); });
+  return ((Math.atan2(sinSum/angles.length, cosSum/angles.length)*180/Math.PI)+360)%360;
+}
+
+function circStdDeg(angles){
+  var sinSum=0, cosSum=0;
+  angles.forEach(function(a){ var r=a*Math.PI/180; sinSum+=Math.sin(r); cosSum+=Math.cos(r); });
+  var R=Math.sqrt(sinSum*sinSum+cosSum*cosSum)/angles.length;
+  return Math.sqrt(-2*Math.log(Math.max(R,1e-10)))*180/Math.PI;
+}
 
 /* COMPASS TICKS */
 (function(){
@@ -258,15 +415,8 @@ function fetchDecl(lat,lon){
 }
 
 function updateMag(){
-  if(azMagRaw==null) return;
-  azMag=azMagRaw;
-  /* recompute geographic now that we have declination */
-  if(decl!=null){
-    azTrue=((azMagRaw + decl) % 360 + 360) % 360;
-    sv('az-geo', azTrue.toFixed(1)+'°');
-    document.getElementById('az-dir').textContent=azCard(azTrue);
-    document.getElementById('needle-geo').setAttribute('transform','rotate('+azTrue+',60,60)');
-  }
+  if(azTrue==null || decl==null) return;
+  azMag=((azTrue - decl) % 360 + 360) % 360;
   sv('az-mag', azMag.toFixed(1)+'°');
   document.getElementById('needle-mag').setAttribute('transform','rotate('+azMag+',60,60)');
 }
@@ -279,8 +429,7 @@ function onOri(e){
   var t=e.beta, g=e.gamma;
 
   if(az!=null){
-    azMagRaw=az;  /* webkitCompassHeading = magnetic */
-    azTrue=((az + (decl||0)) % 360 + 360) % 360; /* geographic = magnetic + declination */
+    azTrue=az; /* webkitCompassHeading = already geographic/true north */
     sv('az-geo', azTrue.toFixed(1)+'°');
     document.getElementById('az-dir').textContent=azCard(azTrue);
     document.getElementById('needle-geo').setAttribute('transform','rotate('+azTrue+',60,60)');
