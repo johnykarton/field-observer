@@ -25,4 +25,14 @@ Při prvním spuštění povol přístup k senzorům orientace. GPS se aktivuje 
 ⚠️ Používej Safari, ne Chrome. Chrome na iOS nemá přístup ke kompasu.
 
 Struktura exportu (CSV)
-SloupecPopisidPořadové číslo bodutimestampČas záznamu v UTC (ISO 8601)lat / lonSouřadnice WGS-84alt_mNadmořská výška (m)acc_mPřesnost GPS (m)az_geo_degAzimut – geografický sever (0–360°, 1 desetinné místo)az_mag_degAzimut – magnetický sever (0–360°, 1 desetinné místo)decl_degMagnetická deklinace použitá pro výpočettilt_beta_degNáklon předo-zadní osa βtilt_gamma_degNáklon boční osa γnotePoznámka / ID fotky
+id                Pořadové číslo bodu
+timestamp         Čas záznamu v UTC (ISO 8601)
+lat / lon         Souřadnice WGS-84
+alt_m             Nadmořská výška (m)
+acc_m             Přesnost GPS (m)
+az_geo_deg        Azimut – geografický sever (0–360°, 1 desetinné místo)
+az_mag_deg        Azimut – magnetický sever (0–360°, 1 desetinné místo)
+decl_deg          Magnetická deklinace použitá pro výpočet
+tilt_beta_deg     Náklon předo-zadní osa β
+tilt_gamma_deg    Náklon boční osa γ
+note              Poznámka / ID fotky
