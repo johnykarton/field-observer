@@ -11,62 +11,45 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;min-height:100vh;overflow-x:hidden;}
 
-/* HEADER */
 .hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:#111;border-bottom:2px solid #2a2a2a;}
 .hdr-title{font-size:14px;font-weight:800;letter-spacing:.1em;}
 .hdr-stats{display:flex;gap:14px;}
 .stat{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#444;}
 .dot{width:9px;height:9px;border-radius:50%;background:#2a2a2a;transition:background .3s;}
-.dot.on{background:#fff;} .dot.err{background:#f44;}
+.dot.on{background:#fff;}.dot.err{background:#f44;}
 
-/* PERMISSION */
 .perm{background:#111;border:2px solid #fff;border-radius:8px;margin:10px 16px;padding:11px 14px;display:flex;align-items:center;gap:12px;}
 .perm.hidden{display:none;}
 .perm p{font-size:14px;color:#bbb;flex:1;line-height:1.4;}
 .btn-perm{background:#fff;color:#000;border:none;border-radius:6px;font-size:13px;font-weight:800;padding:8px 14px;cursor:pointer;}
 
-/* ── MAIN 2-COL PANEL ── */
-.panel{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:2px;
-  background:#1e1e1e;
-  border-bottom:2px solid #2a2a2a;
-}
+.panel{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#1e1e1e;border-bottom:2px solid #2a2a2a;}
 .col{background:#000;padding:14px 14px 16px;}
 
-/* numbers */
 .lbl{font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px;}
 .big{font-size:46px;font-weight:800;color:#fff;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
 .big.dim{color:#2a2a2a;font-size:34px;}
 .sub{font-size:13px;font-weight:700;color:#555;margin-top:3px;min-height:18px;}
 
-/* secondary azimuth row */
 .az2-row{display:flex;align-items:baseline;gap:8px;margin-top:6px;}
 .az2-lbl{font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.1em;}
 .az2-val{font-size:22px;font-weight:800;color:#888;font-variant-numeric:tabular-nums;}
 .az2-val.dim{color:#2a2a2a;}
 .decl-note{font-size:10px;color:#333;margin-top:2px;}
 
-/* tilt secondary */
 .tilt2-row{display:flex;align-items:baseline;gap:8px;margin-top:6px;}
 .tilt2-lbl{font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.1em;}
 .tilt2-val{font-size:22px;font-weight:800;color:#888;font-variant-numeric:tabular-nums;}
 .tilt2-val.dim{color:#2a2a2a;}
 
-/* visuals row – compass & bubble same size, aligned */
 .visual-wrap{margin-top:12px;display:flex;justify-content:center;}
-
-/* bubble status */
 .b-desc{font-size:13px;font-weight:700;color:#888;text-align:center;margin-top:6px;min-height:18px;}
 
-/* GPS */
 .gps-block{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#1e1e1e;border-bottom:2px solid #2a2a2a;}
 .gps-item{background:#000;padding:9px 14px;}
 .gps-item .lbl{font-size:9px;margin-bottom:2px;}
 .gps-item .big{font-size:18px;}
 
-/* SAVE */
 .save-form{display:flex;gap:10px;padding:12px 16px;background:#111;border-bottom:2px solid #2a2a2a;}
 .note-in{flex:1;background:#1a1a1a;border:2px solid #333;border-radius:8px;color:#fff;font-size:17px;font-weight:600;padding:12px 14px;outline:none;}
 .note-in::placeholder{color:#333;}
@@ -75,15 +58,15 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
 .btn-save:active{opacity:.6;}
 .btn-save.ok{background:#2a2a2a;color:#fff;}
 
-/* LIST HDR */
 .list-hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:#111;border-bottom:1px solid #1e1e1e;}
 .list-title{font-size:11px;font-weight:700;color:#555;letter-spacing:.08em;text-transform:uppercase;}
-.exp-row{display:flex;gap:7px;}
-.btn-exp{background:#1a1a1a;border:1px solid #333;border-radius:6px;color:#aaa;font-size:11px;font-weight:700;padding:6px 11px;cursor:pointer;}
+.exp-row{display:flex;gap:5px;}
+.btn-exp{background:#1a1a1a;border:1px solid #333;border-radius:6px;color:#aaa;font-size:11px;font-weight:700;padding:6px 10px;cursor:pointer;}
 .btn-exp:disabled{opacity:.2;cursor:not-allowed;}
 .btn-exp.danger{color:#f55;border-color:#411;}
+.btn-exp.shr{padding:6px 9px;color:#888;border-color:#2a2a2a;border-left:none;border-radius:0 6px 6px 0;margin-left:-4px;}
+.btn-exp.shr:disabled{opacity:.2;cursor:not-allowed;}
 
-/* POINTS */
 .pts-list{padding-bottom:80px;}
 .empty-msg{text-align:center;color:#2a2a2a;font-size:15px;padding:40px 20px;font-weight:600;}
 .pt{border-bottom:1px solid #141414;padding:12px 16px;display:grid;grid-template-columns:32px 1fr 50px;gap:8px;align-items:start;}
@@ -95,7 +78,7 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
 .ml{font-weight:700;color:#444;}
 .mv{font-size:15px;font-weight:800;color:#fff;}
 .pt-time{font-size:11px;color:#333;margin-top:2px;}
-.btn-del{width:46px;height:46px;background:#0a0a0a;border:2px solid #1e1e1e;border-radius:10px;color:#444;font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .1s,color .1s,border-color .1s;}
+.btn-del{width:46px;height:46px;background:#0a0a0a;border:2px solid #1e1e1e;border-radius:10px;color:#444;font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .btn-del:active{background:#f44;color:#fff;border-color:#f44;}
 </style>
 </head>
@@ -114,23 +97,18 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
   <button class="btn-perm" onclick="reqPerm()">Povolit</button>
 </div>
 
-<!-- ── MAIN 2-COL PANEL ── -->
 <div class="panel">
-
-  <!-- LEFT: AZIMUT + KOMPAS -->
   <div class="col">
     <div class="lbl">Azimut (geo)</div>
     <div class="big dim" id="az-geo">—</div>
     <div class="sub" id="az-dir"></div>
-
     <div class="az2-row">
       <span class="az2-lbl">mag</span>
       <span class="az2-val dim" id="az-mag">—</span>
     </div>
     <div class="decl-note" id="decl-note">deklinace: načítám…</div>
-
     <div class="visual-wrap">
-      <svg id="compass-svg" viewBox="0 0 120 120" width="140" height="140">
+      <svg viewBox="0 0 120 120" width="140" height="140">
         <circle cx="60" cy="60" r="56" fill="#080808" stroke="#2a2a2a" stroke-width="1.5"/>
         <circle cx="60" cy="60" r="38" fill="none" stroke="#161616" stroke-width="1" stroke-dasharray="2,7"/>
         <g id="cticks"></g>
@@ -138,13 +116,11 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
         <text x="60" y="114" text-anchor="middle" fill="#333" font-size="11" font-family="-apple-system,sans-serif">S</text>
         <text x="114" y="64" text-anchor="middle" fill="#333" font-size="11" font-family="-apple-system,sans-serif">E</text>
         <text x="6"   y="64" text-anchor="middle" fill="#333" font-size="11" font-family="-apple-system,sans-serif">W</text>
-        <!-- geographic needle (white) -->
         <g id="needle-geo" transform="rotate(0,60,60)">
           <polygon points="60,16 57,60 63,60" fill="#fff"/>
           <polygon points="60,104 57,60 63,60" fill="#2a2a2a"/>
           <circle cx="60" cy="60" r="4.5" fill="#000" stroke="#fff" stroke-width="1.8"/>
         </g>
-        <!-- magnetic needle (grey dashed) -->
         <g id="needle-mag" transform="rotate(0,60,60)" opacity="0.5">
           <line x1="60" y1="20" x2="60" y2="60" stroke="#888" stroke-width="1.5" stroke-dasharray="3,3"/>
           <polygon points="60,20 58,28 62,28" fill="#888"/>
@@ -153,21 +129,18 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
     </div>
   </div>
 
-  <!-- RIGHT: NÁKLON + VODOVÁHA -->
   <div class="col">
     <div class="lbl">Náklon β</div>
     <div class="big dim" id="tilt-val">—</div>
     <div class="sub" id="tilt-sub"></div>
-
     <div class="tilt2-row">
       <span class="tilt2-lbl">γ boční</span>
       <span class="tilt2-val dim" id="gamma-val">—</span>
     </div>
-    <div style="min-height:16px;margin-top:2px;"></div><!-- spacer to align with decl-note -->
-
+    <div style="min-height:16px;margin-top:2px;"></div>
     <div class="visual-wrap">
       <div>
-        <svg id="bubble-svg" viewBox="0 0 120 120" width="140" height="140">
+        <svg viewBox="0 0 120 120" width="140" height="140">
           <circle cx="60" cy="60" r="56" fill="#080808" stroke="#2a2a2a" stroke-width="1.5"/>
           <circle cx="60" cy="60" r="42" fill="none" stroke="#141414" stroke-width="0.8" stroke-dasharray="2,7"/>
           <circle cx="60" cy="60" r="22" fill="none" stroke="#2a2a2a" stroke-width="1.5"/>
@@ -183,7 +156,6 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
   </div>
 </div>
 
-<!-- GPS -->
 <div class="gps-block">
   <div class="gps-item"><div class="lbl">Šířka (lat)</div><div class="big dim" id="lat-val">—</div></div>
   <div class="gps-item"><div class="lbl">Délka (lon)</div><div class="big dim" id="lon-val">—</div></div>
@@ -191,38 +163,39 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
   <div class="gps-item"><div class="lbl">Přesnost</div><div class="big dim" id="acc-val">—</div></div>
 </div>
 
-<!-- SAVE -->
 <div class="save-form">
   <input class="note-in" id="note-in" type="text" placeholder="ID fotky / poznámka…" autocomplete="off" autocorrect="off" spellcheck="false">
   <button class="btn-save" id="btn-save" onclick="savePoint()">ULOŽIT</button>
 </div>
 
-<!-- LIST -->
 <div class="list-hdr">
   <span class="list-title" id="count-lbl">Uložené body (0)</span>
   <div class="exp-row">
-    <button class="btn-exp" id="btn-csv"     onclick="exportCSV()"     disabled>CSV</button>
-    <button class="btn-exp" id="btn-geo"     onclick="exportGeoJSON()" disabled>GeoJSON</button>
-    <button class="btn-exp danger" id="btn-clr" onclick="clearAll()"   disabled>Smazat vše</button>
+    <button class="btn-exp"         id="btn-csv"     onclick="exportCSV()"          disabled>CSV ↓</button>
+    <button class="btn-exp shr"     id="btn-csv-shr" onclick="shareFile('csv')"     disabled>↑</button>
+    <button class="btn-exp"         id="btn-geo"     onclick="exportGeoJSON()"      disabled>GeoJSON ↓</button>
+    <button class="btn-exp shr"     id="btn-geo-shr" onclick="shareFile('geojson')" disabled>↑</button>
+    <button class="btn-exp danger"  id="btn-clr"     onclick="clearAll()"           disabled>✕</button>
   </div>
 </div>
+
 <div class="pts-list" id="pts-list">
   <div class="empty-msg">Zatím žádné body</div>
 </div>
 
 <script>
-/* ── STATE ── */
+/* STATE */
 let gpsData=null, azTrue=null, azMag=null, decl=null, tilt=null, gamma=null, points=[];
 
-/* ── COMPASS TICKS ── */
-(()=>{
-  const g=document.getElementById('cticks');
-  for(let i=0;i<72;i++){
-    const a=i*5*Math.PI/180, maj=i%9===0, mid=i%3===0;
-    const r1=56, r2=maj?45:mid?49:53;
-    const x1=60+r1*Math.sin(a), y1=60-r1*Math.cos(a);
-    const x2=60+r2*Math.sin(a), y2=60-r2*Math.cos(a);
-    const l=document.createElementNS('http://www.w3.org/2000/svg','line');
+/* COMPASS TICKS */
+(function(){
+  var g=document.getElementById('cticks');
+  for(var i=0;i<72;i++){
+    var a=i*5*Math.PI/180, maj=i%9===0, mid=i%3===0;
+    var r1=56, r2=maj?45:mid?49:53;
+    var x1=60+r1*Math.sin(a), y1=60-r1*Math.cos(a);
+    var x2=60+r2*Math.sin(a), y2=60-r2*Math.cos(a);
+    var l=document.createElementNS('http://www.w3.org/2000/svg','line');
     l.setAttribute('x1',x1);l.setAttribute('y1',y1);
     l.setAttribute('x2',x2);l.setAttribute('y2',y2);
     l.setAttribute('stroke',maj?'#fff':mid?'#444':'#222');
@@ -231,89 +204,82 @@ let gpsData=null, azTrue=null, azMag=null, decl=null, tilt=null, gamma=null, poi
   }
 })();
 
-/* ── GPS ── */
+/* GPS */
 function startGPS(){
-  if(!navigator.geolocation)return;
-  navigator.geolocation.watchPosition(p=>{
-    gpsData={lat:p.coords.latitude,lon:p.coords.longitude,
-             alt:p.coords.altitude,acc:p.coords.accuracy};
-    sv('lat-val',gpsData.lat.toFixed(6));
-    sv('lon-val',gpsData.lon.toFixed(6));
-    sv('alt-val',gpsData.alt!=null?Math.round(gpsData.alt)+' m':'—');
-    sv('acc-val','±'+Math.round(gpsData.acc)+' m');
+  if(!navigator.geolocation) return;
+  navigator.geolocation.watchPosition(function(p){
+    gpsData={lat:p.coords.latitude, lon:p.coords.longitude,
+             alt:p.coords.altitude, acc:p.coords.accuracy};
+    sv('lat-val', gpsData.lat.toFixed(6));
+    sv('lon-val', gpsData.lon.toFixed(6));
+    sv('alt-val', gpsData.alt!=null ? Math.round(gpsData.alt)+' m' : '—');
+    sv('acc-val', '±'+Math.round(gpsData.acc)+' m');
     dot('gps-dot','on');
-    if(decl===null) fetchDeclination(gpsData.lat,gpsData.lon);
-  },()=>dot('gps-dot','err'),
-  {enableHighAccuracy:true,maximumAge:2000,timeout:10000});
+    if(decl===null) fetchDecl(gpsData.lat, gpsData.lon);
+  }, function(){ dot('gps-dot','err'); },
+  {enableHighAccuracy:true, maximumAge:2000, timeout:10000});
 }
 
-/* ── MAGNETIC DECLINATION ── */
-async function fetchDeclination(lat,lon){
-  try{
-    // NOAA Geomagnetic API
-    const url=`https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}&resultFormat=json`;
-    const r=await fetch(url);
-    const d=await r.json();
-    decl=d.result[0].declination; // degrees, + = east
-    document.getElementById('decl-note').textContent=
-      `deklinace: ${decl>=0?'+':''}${decl.toFixed(1)}° (${decl>=0?'V':'Z'})`;
-    updateMag();
-  }catch(e){
-    // fallback: approximate for Central Europe (~+4.5° for CZ in 2026)
-    decl=4.5;
-    document.getElementById('decl-note').textContent='deklinace: ~+4.5° (approx)';
-    updateMag();
-  }
+/* DECLINATION */
+function fetchDecl(lat,lon){
+  var url='https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination?lat='+lat.toFixed(4)+'&lon='+lon.toFixed(4)+'&resultFormat=json';
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      decl=d.result[0].declination;
+      document.getElementById('decl-note').textContent='deklinace: '+(decl>=0?'+':'')+decl.toFixed(1)+'° ('+(decl>=0?'V':'Z')+')';
+      updateMag();
+    })
+    .catch(function(){
+      decl=4.5;
+      document.getElementById('decl-note').textContent='deklinace: ~+4.5° (approx)';
+      updateMag();
+    });
 }
 
 function updateMag(){
-  if(azTrue==null||decl==null)return;
-  // magnetic = geographic – eastern_declination
+  if(azTrue==null || decl==null) return;
   azMag=((azTrue-decl)%360+360)%360;
-  sv('az-mag',azMag.toFixed(1)+'°');
-  document.getElementById('needle-mag')
-    .setAttribute('transform',`rotate(${azMag},60,60)`);
+  sv('az-mag', azMag.toFixed(1)+'°');
+  document.getElementById('needle-mag').setAttribute('transform','rotate('+azMag+',60,60)');
 }
 
-/* ── ORIENTATION ── */
+/* ORIENTATION */
 function onOri(e){
-  let az=null;
-  // iOS: webkitCompassHeading = TRUE north
+  var az=null;
   if(e.webkitCompassHeading!=null) az=e.webkitCompassHeading;
-  else if(e.alpha!=null) az=(360-e.alpha)%360; // Android fallback (magnetic)
-  const t=e.beta, g=e.gamma;
+  else if(e.alpha!=null) az=(360-e.alpha)%360;
+  var t=e.beta, g=e.gamma;
 
   if(az!=null){
     azTrue=az;
-    sv('az-geo',az.toFixed(1)+'°');
+    sv('az-geo', az.toFixed(1)+'°');
     document.getElementById('az-dir').textContent=azCard(az);
-    document.getElementById('needle-geo')
-      .setAttribute('transform',`rotate(${az},60,60)`);
+    document.getElementById('needle-geo').setAttribute('transform','rotate('+az+',60,60)');
     dot('ori-dot','on');
     updateMag();
   }
 
   if(t!=null){
     tilt=t;
-    const tr=Math.round(t);
-    sv('tilt-val',(tr>=0?'+':'')+tr+'°');
+    var tr=Math.round(t);
+    sv('tilt-val', (tr>=0?'+':'')+tr+'°');
   }
 
-  if(t!=null&&g!=null){
+  if(t!=null && g!=null){
     gamma=g;
-    const gr=Math.round(g);
-    sv('gamma-val',(gr>=0?'+':'')+gr+'°');
+    var gr=Math.round(g);
+    sv('gamma-val', (gr>=0?'+':'')+gr+'°');
 
-    // bubble physics: phone held upright portrait = beta≈90
-    const maxR=41, betaN=90;
-    const dy=clamp(-(t-betaN)/45*maxR,-maxR,maxR);
-    const dx=clamp(-g/45*maxR,-maxR,maxR);
-    const dist=Math.sqrt(dx*dx+dy*dy);
-    const lvl=dist<9, col=lvl?'#fff':'#f44';
-    const bx=60+dx, by=60+dy;
-    setBubble(bx,by,col,lvl);
+    var maxR=41, betaN=90;
+    var dy=clamp(-(t-betaN)/45*maxR,-maxR,maxR);
+    var dx=clamp(-g/45*maxR,-maxR,maxR);
+    var dist=Math.sqrt(dx*dx+dy*dy);
+    var lvl=dist<9;
+    var col=lvl?'#fff':'#f44';
+    setBubble(60+dx, 60+dy, col, lvl);
 
-    let desc='';
+    var desc='';
     if(lvl) desc='● vyrovnáno';
     else if(Math.abs(t-betaN)>=Math.abs(g)) desc=t>betaN?'dopředu ↑':'dozadu ↓';
     else desc=g>0?'vpravo →':'vlevo ←';
@@ -322,24 +288,25 @@ function onOri(e){
 }
 
 function setBubble(bx,by,col,lvl){
-  const b=document.getElementById('bubble');
-  const bd=document.getElementById('bdot');
-  b.setAttribute('cx',bx);b.setAttribute('cy',by);
+  var b=document.getElementById('bubble');
+  var bd=document.getElementById('bdot');
+  b.setAttribute('cx',bx); b.setAttribute('cy',by);
   b.setAttribute('stroke',col);
   b.setAttribute('fill',lvl?'rgba(255,255,255,0.07)':'rgba(255,60,60,0.07)');
-  bd.setAttribute('cx',bx);bd.setAttribute('cy',by);
+  bd.setAttribute('cx',bx); bd.setAttribute('cy',by);
   bd.setAttribute('fill',lvl?'rgba(255,255,255,0.75)':'rgba(255,50,50,0.9)');
 }
 
 function azCard(az){
-  return ['S','SSV','SV','VSV','V','VJV','JV','JJV','J','JJZ','JZ','ZJZ','Z','ZSZ','SZ','SSZ'][Math.round(az/22.5)%16];
+  var dirs=['S','SSV','SV','VSV','V','VJV','JV','JJV','J','JJZ','JZ','ZJZ','Z','ZSZ','SZ','SSZ'];
+  return dirs[Math.round(az/22.5)%16];
 }
-function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
 
-/* ── PERMISSION ── */
+/* PERMISSION */
 function reqPerm(){
-  if(typeof DeviceOrientationEvent?.requestPermission==='function'){
-    DeviceOrientationEvent.requestPermission().then(s=>{
+  if(typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+    DeviceOrientationEvent.requestPermission().then(function(s){
       if(s==='granted'){
         window.addEventListener('deviceorientation',onOri,true);
         document.getElementById('perm').classList.add('hidden');
@@ -349,119 +316,169 @@ function reqPerm(){
   }
 }
 function initOri(){
-  if(typeof DeviceOrientationEvent?.requestPermission==='function')
+  if(typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function')
     document.getElementById('perm').classList.remove('hidden');
-  else window.addEventListener('deviceorientation',onOri,true);
+  else
+    window.addEventListener('deviceorientation',onOri,true);
 }
 
-/* ── HELPERS ── */
-function sv(id,v){const el=document.getElementById(id);el.textContent=v;el.classList.remove('dim');}
-function dot(id,c){document.getElementById(id).className='dot '+c;}
+/* HELPERS */
+function sv(id,v){ var el=document.getElementById(id); el.textContent=v; el.classList.remove('dim'); }
+function dot(id,c){ document.getElementById(id).className='dot '+c; }
 
-/* ── SAVE ── */
+/* SAVE */
 function savePoint(){
-  const note=document.getElementById('note-in').value.trim();
-  const now=new Date();
-  points.unshift({
-    id:(points[0]?.id??0)+1,
-    timestamp:now.toISOString(),
-    tsLocal:now.toLocaleString('cs-CZ'),
-    lat:gpsData?.lat??null, lon:gpsData?.lon??null,
-    alt:gpsData?.alt??null, acc:gpsData?.acc??null,
-    az_geo:azTrue!=null?+azTrue.toFixed(1):null,
-    az_mag:azMag!=null?+azMag.toFixed(1):null,
-    decl:decl!=null?+decl.toFixed(1):null,
-    tilt:tilt!=null?Math.round(tilt):null,
-    gamma:gamma!=null?Math.round(gamma):null,
-    note
-  });
+  var note=document.getElementById('note-in').value.trim();
+  var now=new Date();
+  var p={
+    id: points.length ? points[0].id+1 : 1,
+    timestamp: now.toISOString(),
+    tsLocal: now.toLocaleString('cs-CZ'),
+    lat: gpsData ? gpsData.lat : null,
+    lon: gpsData ? gpsData.lon : null,
+    alt: gpsData ? gpsData.alt : null,
+    acc: gpsData ? gpsData.acc : null,
+    az_geo: azTrue!=null ? +azTrue.toFixed(1) : null,
+    az_mag: azMag!=null  ? +azMag.toFixed(1)  : null,
+    decl:   decl!=null   ? +decl.toFixed(1)   : null,
+    tilt:   tilt!=null   ? Math.round(tilt)   : null,
+    gamma:  gamma!=null  ? Math.round(gamma)  : null,
+    note: note
+  };
+  points.unshift(p);
   document.getElementById('note-in').value='';
   render(); updBtns();
-  const b=document.getElementById('btn-save');
-  b.textContent='✓ OK';b.classList.add('ok');
-  setTimeout(()=>{b.textContent='ULOŽIT';b.classList.remove('ok');},900);
+  var btn=document.getElementById('btn-save');
+  btn.textContent='✓ OK'; btn.classList.add('ok');
+  setTimeout(function(){ btn.textContent='ULOŽIT'; btn.classList.remove('ok'); }, 900);
 }
 
-/* ── RENDER ── */
+/* RENDER */
 function render(){
-  const c=document.getElementById('pts-list');
-  document.getElementById('count-lbl').textContent=`Uložené body (${points.length})`;
+  var c=document.getElementById('pts-list');
+  document.getElementById('count-lbl').textContent='Uložené body ('+points.length+')';
   c.innerHTML='';
-  if(!points.length){c.innerHTML='<div class="empty-msg">Zatím žádné body</div>';return;}
-  points.forEach((p,i)=>{
-    const d=document.createElement('div');
+  if(!points.length){ c.innerHTML='<div class="empty-msg">Zatím žádné body</div>'; return; }
+  points.forEach(function(p,i){
+    var d=document.createElement('div');
     d.className='pt';
-    const fs=(v,u='°')=>v!=null?(v>=0?'+':'')+v+u:'—';
-    const fn=(v,u='°')=>v!=null?v+u:'—';
-    d.innerHTML=`
-      <div class="pt-num">#${p.id}</div>
-      <div>
-        <div class="pt-note ${p.note?'':'empty'}">${p.note||'(bez poznámky)'}</div>
-        <div class="pt-meta">
-          <div class="row">
-            <span><span class="ml">GEO</span> <span class="mv">${fn(p.az_geo)}</span></span>
-            <span><span class="ml">MAG</span> <span class="mv">${fn(p.az_mag)}</span></span>
-            <span><span class="ml">β</span> <span class="mv">${fs(p.tilt)}</span></span>
-            <span><span class="ml">γ</span> <span class="mv">${fs(p.gamma)}</span></span>
-          </div>
-          <div class="row">
-            <span><span class="ml">LAT</span> ${p.lat!=null?p.lat.toFixed(5):'—'}</span>
-            <span><span class="ml">LON</span> ${p.lon!=null?p.lon.toFixed(5):'—'}</span>
-          </div>
-          <div class="row">
-            <span><span class="ml">ALT</span> ${p.alt!=null?Math.round(p.alt)+' m':'—'}</span>
-            <span><span class="ml">ACC</span> ${p.acc!=null?'±'+Math.round(p.acc)+' m':'—'}</span>
-          </div>
-          <div class="pt-time">${p.tsLocal}</div>
-        </div>
-      </div>
-      <button class="btn-del" onclick="delPt(${i})">✕</button>`;
+    function fn(v,u){ u=u||'°'; return v!=null ? v+u : '—'; }
+    function fs(v,u){ u=u||'°'; return v!=null ? (v>=0?'+':'')+v+u : '—'; }
+    d.innerHTML=
+      '<div class="pt-num">#'+p.id+'</div>'+
+      '<div>'+
+        '<div class="pt-note '+(p.note?'':'empty')+'">'+(p.note||'(bez poznámky)')+'</div>'+
+        '<div class="pt-meta">'+
+          '<div class="row">'+
+            '<span><span class="ml">GEO</span> <span class="mv">'+fn(p.az_geo)+'</span></span>'+
+            '<span><span class="ml">MAG</span> <span class="mv">'+fn(p.az_mag)+'</span></span>'+
+            '<span><span class="ml">β</span> <span class="mv">'+fs(p.tilt)+'</span></span>'+
+            '<span><span class="ml">γ</span> <span class="mv">'+fs(p.gamma)+'</span></span>'+
+          '</div>'+
+          '<div class="row">'+
+            '<span><span class="ml">LAT</span> '+(p.lat!=null?p.lat.toFixed(5):'—')+'</span>'+
+            '<span><span class="ml">LON</span> '+(p.lon!=null?p.lon.toFixed(5):'—')+'</span>'+
+          '</div>'+
+          '<div class="row">'+
+            '<span><span class="ml">ALT</span> '+(p.alt!=null?Math.round(p.alt)+' m':'—')+'</span>'+
+            '<span><span class="ml">ACC</span> '+(p.acc!=null?'±'+Math.round(p.acc)+' m':'—')+'</span>'+
+          '</div>'+
+          '<div class="pt-time">'+p.tsLocal+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<button class="btn-del" onclick="delPt('+i+')">✕</button>';
     c.appendChild(d);
   });
 }
 
 function delPt(i){
-  if(!confirm(`Smazat bod #${points[i].id}?`))return;
-  points.splice(i,1);render();updBtns();
+  if(!confirm('Smazat bod #'+points[i].id+'?')) return;
+  points.splice(i,1); render(); updBtns();
 }
 function clearAll(){
-  if(!points.length||!confirm(`Smazat všech ${points.length} bodů?`))return;
-  points=[];render();updBtns();
+  if(!points.length || !confirm('Smazat všech '+points.length+' bodů?')) return;
+  points=[]; render(); updBtns();
 }
 function updBtns(){
-  const h=points.length>0;
-  ['btn-csv','btn-geo','btn-clr'].forEach(id=>document.getElementById(id).disabled=!h);
+  var h=points.length>0;
+  ['btn-csv','btn-csv-shr','btn-geo','btn-geo-shr','btn-clr'].forEach(function(id){
+    document.getElementById(id).disabled=!h;
+  });
 }
 
-/* ── EXPORT ── */
+/* BUILD DATA */
+function buildCSV(){
+  var h='id,timestamp,lat,lon,alt_m,acc_m,az_geo_deg,az_mag_deg,decl_deg,tilt_beta_deg,tilt_gamma_deg,note';
+  var rows=points.slice().reverse().map(function(p){
+    return [
+      p.id, p.timestamp,
+      p.lat!=null?p.lat:'', p.lon!=null?p.lon:'',
+      p.alt!=null?p.alt:'', p.acc!=null?p.acc:'',
+      p.az_geo!=null?p.az_geo:'', p.az_mag!=null?p.az_mag:'', p.decl!=null?p.decl:'',
+      p.tilt!=null?p.tilt:'', p.gamma!=null?p.gamma:'',
+      '"'+(p.note||'').replace(/"/g,'""')+'"'
+    ].join(',');
+  });
+  return [h].concat(rows).join('\n');
+}
+
+function buildGeoJSON(){
+  var features=points.slice().reverse()
+    .filter(function(p){ return p.lat!=null && p.lon!=null; })
+    .map(function(p){
+      return {
+        type:'Feature',
+        geometry:{
+          type:'Point',
+          coordinates: p.alt!=null ? [p.lon,p.lat,p.alt] : [p.lon,p.lat]
+        },
+        properties:{
+          id:p.id, timestamp:p.timestamp,
+          az_geo_deg:p.az_geo, az_mag_deg:p.az_mag, decl_deg:p.decl,
+          tilt_beta_deg:p.tilt, tilt_gamma_deg:p.gamma,
+          gps_accuracy_m:p.acc, note:p.note
+        }
+      };
+    });
+  return JSON.stringify({type:'FeatureCollection',features:features},null,2);
+}
+
+/* EXPORT (download) */
 function exportCSV(){
-  const h=['id','timestamp','lat','lon','alt_m','acc_m','az_geo_deg','az_mag_deg','decl_deg','tilt_beta_deg','tilt_gamma_deg','note'];
-  const rows=points.slice().reverse().map(p=>[
-    p.id,p.timestamp,p.lat??'',p.lon??'',p.alt??'',p.acc??'',
-    p.az_geo??'',p.az_mag??'',p.decl??'',p.tilt??'',p.gamma??'',
-    '"'+(p.note||'').replace(/"/g,'""')+'"'
-  ].join(','));
-  dl('field_observer_'+ds()+'.csv',[h.join(','),...rows].join('\n'),'text/csv');
+  dlFile('field_observer_'+ds()+'.csv', buildCSV(), 'text/csv');
 }
 function exportGeoJSON(){
-  const features=points.slice().reverse()
-    .filter(p=>p.lat!=null&&p.lon!=null)
-    .map(p=>({type:'Feature',
-      geometry:{type:'Point',coordinates:p.alt!=null?[p.lon,p.lat,p.alt]:[p.lon,p.lat]},
-      properties:{id:p.id,timestamp:p.timestamp,
-        az_geo_deg:p.az_geo,az_mag_deg:p.az_mag,decl_deg:p.decl,
-        tilt_beta_deg:p.tilt,tilt_gamma_deg:p.gamma,
-        gps_accuracy_m:p.acc,note:p.note}}));
-  dl('field_observer_'+ds()+'.geojson',JSON.stringify({type:'FeatureCollection',features},null,2),'application/json');
-}
-function ds(){return new Date().toISOString().slice(0,10);}
-function dl(name,cnt,mime){
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([cnt],{type:mime}));
-  a.download=name;a.click();
+  dlFile('field_observer_'+ds()+'.geojson', buildGeoJSON(), 'application/json');
 }
 
-/* ── INIT ── */
+/* SHARE */
+function shareFile(type){
+  var isCsv=type==='csv';
+  var name='field_observer_'+ds()+(isCsv?'.csv':'.geojson');
+  var content=isCsv?buildCSV():buildGeoJSON();
+  var mime=isCsv?'text/csv':'application/json';
+
+  if(navigator.share && navigator.canShare){
+    var file=new File([content], name, {type:mime});
+    if(navigator.canShare({files:[file]})){
+      navigator.share({files:[file], title:'Field Observer export'})
+        .catch(function(e){ if(e.name!=='AbortError') dlFile(name,content,mime); });
+      return;
+    }
+  }
+  /* fallback – plain download */
+  dlFile(name, content, mime);
+}
+
+/* HELPERS */
+function ds(){ return new Date().toISOString().slice(0,10); }
+function dlFile(name,content,mime){
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([content],{type:mime}));
+  a.download=name; a.click();
+}
+
+/* INIT */
 startGPS(); initOri(); render();
 </script>
 </body>
