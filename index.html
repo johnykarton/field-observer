@@ -186,7 +186,7 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
 
 <script>
 /* STATE */
-let gpsData=null, azTrue=null, azMag=null, decl=null, tilt=null, gamma=null, points=[];
+let gpsData=null, azTrue=null, azMag=null, azMagRaw=null, decl=null, tilt=null, gamma=null, points=[];
 var calBeta=0, calGamma=0; /* calibration offsets */
 
 /* COMPASS TICKS */
@@ -240,8 +240,15 @@ function fetchDecl(lat,lon){
 }
 
 function updateMag(){
-  if(azTrue==null || decl==null) return;
-  azMag=((azTrue-decl)%360+360)%360;
+  if(azMagRaw==null) return;
+  azMag=azMagRaw;
+  /* recompute geographic now that we have declination */
+  if(decl!=null){
+    azTrue=((azMagRaw + decl) % 360 + 360) % 360;
+    sv('az-geo', azTrue.toFixed(1)+'°');
+    document.getElementById('az-dir').textContent=azCard(azTrue);
+    document.getElementById('needle-geo').setAttribute('transform','rotate('+azTrue+',60,60)');
+  }
   sv('az-mag', azMag.toFixed(1)+'°');
   document.getElementById('needle-mag').setAttribute('transform','rotate('+azMag+',60,60)');
 }
@@ -254,10 +261,11 @@ function onOri(e){
   var t=e.beta, g=e.gamma;
 
   if(az!=null){
-    azTrue=az;
-    sv('az-geo', az.toFixed(1)+'°');
-    document.getElementById('az-dir').textContent=azCard(az);
-    document.getElementById('needle-geo').setAttribute('transform','rotate('+az+',60,60)');
+    azMagRaw=az;  /* webkitCompassHeading = magnetic */
+    azTrue=((az + (decl||0)) % 360 + 360) % 360; /* geographic = magnetic + declination */
+    sv('az-geo', azTrue.toFixed(1)+'°');
+    document.getElementById('az-dir').textContent=azCard(azTrue);
+    document.getElementById('needle-geo').setAttribute('transform','rotate('+azTrue+',60,60)');
     dot('ori-dot','on');
     updateMag();
   }
