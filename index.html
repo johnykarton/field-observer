@@ -491,6 +491,12 @@ function dlFile(name,content,mime){
 
 /* INIT */
 startGPS(); initOri(); render();
+
+/* SERVICE WORKER */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/field-observer/sw.js')
+    .catch(function(e){ console.warn('SW:', e); });
+}
 </script>
 </body>
 </html>
