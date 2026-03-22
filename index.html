@@ -161,7 +161,11 @@ body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',Arial
   <div class="gps-item"><div class="lbl">Šířka (lat)</div><div class="big dim" id="lat-val">—</div></div>
   <div class="gps-item"><div class="lbl">Délka (lon)</div><div class="big dim" id="lon-val">—</div></div>
   <div class="gps-item"><div class="lbl">Výška (m)</div><div class="big dim" id="alt-val">—</div></div>
-  <div class="gps-item"><div class="lbl">Přesnost</div><div class="big dim" id="acc-val">—</div></div>
+  <div class="gps-item">
+    <div class="lbl">Přesnost GPS</div>
+    <div class="big dim" id="acc-val">—</div>
+    <div id="gps-quality" style="display:none;margin-top:5px;display:inline-block;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:800;letter-spacing:.06em;"></div>
+  </div>
 </div>
 
 <div class="save-form">
@@ -217,9 +221,23 @@ function startGPS(){
     sv('alt-val', gpsData.alt!=null ? Math.round(gpsData.alt)+' m' : '—');
     sv('acc-val', '±'+Math.round(gpsData.acc)+' m');
     dot('gps-dot','on');
+    updateGpsQuality(gpsData.acc);
     if(decl===null) fetchDecl(gpsData.lat, gpsData.lon);
   }, function(){ dot('gps-dot','err'); },
   {enableHighAccuracy:true, maximumAge:2000, timeout:10000});
+}
+
+function updateGpsQuality(acc){
+  var el=document.getElementById('gps-quality');
+  var label, bg, color;
+  if(acc < 5)       { label='● VÝBORNÝ';  bg='#fff';    color='#000'; }
+  else if(acc < 10) { label='● DOBRÝ';    bg='#e6c000'; color='#000'; }
+  else if(acc < 20) { label='● SLABÝ';    bg='#e06000'; color='#fff'; }
+  else              { label='● ŠPATNÝ';   bg='#c00';    color='#fff'; }
+  el.textContent=label;
+  el.style.background=bg;
+  el.style.color=color;
+  el.style.display='inline-block';
 }
 
 /* DECLINATION */
@@ -500,8 +518,8 @@ function dlFile(name,content,mime){
 /* INIT */
 startGPS(); initOri(); render();
 
-/* SERVICE WORKER */
-if('serviceWorker' in navigator){
+/* SERVICE WORKER – only on GitHub Pages */
+if('serviceWorker' in navigator && location.hostname.endsWith('github.io')){
   navigator.serviceWorker.register('/field-observer/sw.js')
     .catch(function(e){ console.warn('SW:', e); });
 }
