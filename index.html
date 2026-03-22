@@ -270,7 +270,7 @@ function updateMag(){
   if(azTrue==null||decl==null)return;
   // magnetic = geographic – eastern_declination
   azMag=((azTrue-decl)%360+360)%360;
-  sv('az-mag',Math.round(azMag)+'°');
+  sv('az-mag',azMag.toFixed(1)+'°');
   document.getElementById('needle-mag')
     .setAttribute('transform',`rotate(${azMag},60,60)`);
 }
@@ -285,8 +285,7 @@ function onOri(e){
 
   if(az!=null){
     azTrue=az;
-    const r=Math.round(az);
-    sv('az-geo',r+'°');
+    sv('az-geo',az.toFixed(1)+'°');
     document.getElementById('az-dir').textContent=azCard(az);
     document.getElementById('needle-geo')
       .setAttribute('transform',`rotate(${az},60,60)`);
@@ -369,8 +368,8 @@ function savePoint(){
     tsLocal:now.toLocaleString('cs-CZ'),
     lat:gpsData?.lat??null, lon:gpsData?.lon??null,
     alt:gpsData?.alt??null, acc:gpsData?.acc??null,
-    az_geo:azTrue!=null?Math.round(azTrue):null,
-    az_mag:azMag!=null?Math.round(azMag):null,
+    az_geo:azTrue!=null?+azTrue.toFixed(1):null,
+    az_mag:azMag!=null?+azMag.toFixed(1):null,
     decl:decl!=null?+decl.toFixed(1):null,
     tilt:tilt!=null?Math.round(tilt):null,
     gamma:gamma!=null?Math.round(gamma):null,
