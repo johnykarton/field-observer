@@ -569,6 +569,7 @@ function render(){
             '<span><span class="ml">ALT</span> '+(p.alt!=null?Math.round(p.alt)+' m':'—')+'</span>'+
             '<span><span class="ml">ACC</span> '+(p.acc!=null?'±'+Math.round(p.acc)+' m':'—')+'</span>'+
           '</div>'+
+          (p.prec_n!=null?'<div class="row"><span style="color:#555;font-size:12px;">⊙ zpřesněno · n='+p.prec_n+' · σ='+p.prec_sd+'°</span></div>':'')+
           '<div class="pt-time">'+p.tsLocal+'</div>'+
         '</div>'+
       '</div>'+
@@ -594,7 +595,7 @@ function updBtns(){
 
 /* BUILD DATA */
 function buildCSV(){
-  var h='id,timestamp,lat,lon,alt_m,acc_m,az_geo_deg,az_mag_deg,decl_deg,tilt_beta_deg,tilt_gamma_deg,note';
+  var h='id,timestamp,lat,lon,alt_m,acc_m,az_geo_deg,az_mag_deg,decl_deg,tilt_beta_deg,tilt_gamma_deg,prec_samples,prec_sd_deg,note';
   var rows=points.slice().reverse().map(function(p){
     return [
       p.id, p.timestamp,
@@ -602,6 +603,7 @@ function buildCSV(){
       p.alt!=null?p.alt:'', p.acc!=null?p.acc:'',
       p.az_geo!=null?p.az_geo:'', p.az_mag!=null?p.az_mag:'', p.decl!=null?p.decl:'',
       p.tilt!=null?p.tilt:'', p.gamma!=null?p.gamma:'',
+      p.prec_n!=null?p.prec_n:'', p.prec_sd!=null?p.prec_sd:'',
       '"'+(p.note||'').replace(/"/g,'""')+'"'
     ].join(',');
   });
@@ -612,18 +614,17 @@ function buildGeoJSON(){
   var features=points.slice().reverse()
     .filter(function(p){ return p.lat!=null && p.lon!=null; })
     .map(function(p){
+      var props={
+        id:p.id, timestamp:p.timestamp,
+        az_geo_deg:p.az_geo, az_mag_deg:p.az_mag, decl_deg:p.decl,
+        tilt_beta_deg:p.tilt, tilt_gamma_deg:p.gamma,
+        gps_accuracy_m:p.acc, note:p.note
+      };
+      if(p.prec_n!=null){ props.prec_samples=p.prec_n; props.prec_sd_deg=p.prec_sd; }
       return {
         type:'Feature',
-        geometry:{
-          type:'Point',
-          coordinates: p.alt!=null ? [p.lon,p.lat,p.alt] : [p.lon,p.lat]
-        },
-        properties:{
-          id:p.id, timestamp:p.timestamp,
-          az_geo_deg:p.az_geo, az_mag_deg:p.az_mag, decl_deg:p.decl,
-          tilt_beta_deg:p.tilt, tilt_gamma_deg:p.gamma,
-          gps_accuracy_m:p.acc, note:p.note
-        }
+        geometry:{type:'Point', coordinates: p.alt!=null?[p.lon,p.lat,p.alt]:[p.lon,p.lat]},
+        properties:props
       };
     });
   return JSON.stringify({type:'FeatureCollection',features:features},null,2);
