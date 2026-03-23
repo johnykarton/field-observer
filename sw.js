@@ -1,4 +1,4 @@
-const CACHE = ‘field-observer-v1’;
+const CACHE = ‘field-observer-v2’;
 const FILES = [’/field-observer/’];
 
 self.addEventListener(‘install’, function(e) {
