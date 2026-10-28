@@ -10,3 +10,7 @@ Tato pravidla platí pro dlouhé úlohy v tomto repozitáři. Aktuální přím�
 - Zajisti přežití nové relace: v dočasném prostředí ulož checkpoint do schváleného trvalého úložiště (např. aktuální pracovní větev či projektová poznámka). Nepředpokládej, že necommitnutý soubor v dočasném stroji zůstane dostupný.
 - Při obnově přečti checkpoint, samostatně ověř Git stav, aktuální soubory, služby a testy. Neopakuj potenciálně nevratnou operaci bez kontroly skutečného výsledku.
 - Neukládej hesla, tokeny, citlivá osobní data ani surové důvěrné logy. Checkpointování nesmí obejít dohodnutý proces review nebo nasazování.
+
+## Design guidance
+
+For interface and visual work, follow [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md) alongside the existing repository and more specific local instructions. Preserve existing functionality and design unless the user requests a change.
